@@ -20,5 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('auth_client')->group(function (){
     Route::post('/login','AuthClientController@postLogin')->name('login_client.postLogin');
     Route::post('/register', 'AuthClientController@postRegister')->name('register_client.postRegister');
-
+    Route::get('/email/verify/{id}', 'AuthController@verifyEmail')->name('verification.verify');
 });
+//Reset Password
+Route::post('password/email', 'AuthClientController@forgotPassword')->name('password.email');
+Route::post('password/reset', 'AuthClientController@resetPassword')->name('password.reset');
+

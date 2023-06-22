@@ -1,5 +1,9 @@
+
 @extends('hono.layout.main')
 @section('content')
+    @php
+        use Illuminate\Support\Facades\Session;
+    @endphp
     <main id="content" role="main" class="main">
         <div class="position-fixed top-0 right-0 left-0 bg-img-hero" style="height: 32rem; background-image: url(manage/assets/svg/components/abstract-bg-4.svg);">
             <!-- SVG Bottom Shape -->
@@ -20,8 +24,22 @@
                     <!-- Card -->
                     <div class="card card-lg mb-5">
                         <div class="card-body">
+                            {{--            Thông báo tác vụ--}}
+                            <div class="container" >
+
+                                @if(Session::has('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+                                @if(Session::has('false'))
+                                    <div class="alert alert-warning" role="alert">
+                                        {{ Session::get('false') }}
+                                    </div>
+                                @endif
+                            </div>
                             <!-- Form -->
-                            <form class="js-validate" method="post" action="{{route('login_client.postLogin')}}">
+                            <form class="loginForm" method="post" action="{{route('login_client.postLogin')}}">
                                 @csrf
                                 <div class="text-center">
                                     <div class="mb-5">
@@ -52,7 +70,7 @@
                                     <label class="input-label" for="signupSrPassword" tabindex="0">
                         <span class="d-flex justify-content-between align-items-center">
                           Password
-                          <a class="input-label-secondary" href="{{route('change_pass_client.index')}}">Forgot Password?</a>
+                          <a class="input-label-secondary" href="{{route('email_resetPass.index')}}">Forgot Password?</a>
                         </span>
                                     </label>
 
@@ -98,4 +116,5 @@
         </div>
         <!-- End Content -->
     </main>
+    <script src="public/js/ajax.js"></script>
 @endsection
