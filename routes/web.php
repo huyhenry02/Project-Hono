@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return redirect('hono   ');
+    return redirect('hono/login   ');
 });
 //Admin
 Route::prefix('admin')->group(function () {
@@ -82,13 +82,18 @@ Route::prefix('hono')->group(function () {
         Route::get('/', 'AuthClientController@show_register')->name('register_client.index');
     });
     //Forgot Pass CLient
-    Route::prefix('change_pass')->group(function () {
-        Route::get('/', 'AuthClientController@show_change_pass')->name('change_pass_client.index');
+    Route::prefix('forgot_pass')->group(function () {
+        Route::get('/email_resetPass', 'AuthClientController@show_email_resetPass')->name('email_resetPass.index');
+        Route::post('/email_resetPass', 'AuthClientController@forgotPassword')->name('password.email');
+        Route::get('/reset_pass/{user}/{token}', 'AuthClientController@show_reset_pass')->name('reset_pass.index');
+        Route::post('/reset_pass/{user}/{token}', 'AuthClientController@resetPassword')->name('password.reset');
     });
+    //Active Client
+    Route::get('actived/{user}/{token} ', 'AuthClientController@actived')->name('client.actived');
 
 Route::prefix('my_account')->group(function ()
 {
-    Route::post('/logout', 'AuthClientController@logout')->name('logout_client');
+    Route::get('/logout', 'AuthClientController@logout')->name('logout_client');
     Route::get('/','ClientController@show_my_account')->name('my_account_client.index');
 
 }

@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
 @extends('hono.layout.main')
 @section('content')
     <div class="breadcrumb-section breadcrumb-bg-color--golden">
@@ -5,18 +8,21 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="breadcrumb-title">My Account</h3>
+                        <h3 class="breadcrumb-title">
+{{--                            @dd(\auth()->user())--}}
+                            @if (Auth::check())
+                                {{ Auth::user()->name }}
+                            @else
+                                My Account
+                            @endif
+
+                        </h3>
                         <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
                                     <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
-                                    @if(Auth::user())
-                                        {{$user = Auth::user()}}
-                                        <li class="active" aria-current="page">{{$user->name}}</li>
-                                    @else
                                         <li class="active" aria-current="page">My Account</li>
-                                    @endif
                                 </ul>
                             </nav>
                         </div>
