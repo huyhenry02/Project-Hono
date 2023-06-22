@@ -1,6 +1,8 @@
 @extends('hono.layout.main')
 @section('content')
-
+    @php
+        use Illuminate\Support\Facades\Session;
+    @endphp
     <!-- ========== MAIN CONTENT ========== -->
     <main id="content" role="main" class="main">
         <div class="position-fixed top-0 right-0 left-0 bg-img-hero" style="height: 32rem; background-image: url(assets/svg/components/abstract-bg-4.svg);">
@@ -21,8 +23,22 @@
                     <!-- Card -->
                     <div class="card card-lg mb-5">
                         <div class="card-body">
+                            {{--            Thông báo tác vụ--}}
+                            <div class="container" >
+
+                                @if(Session::has('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+                                @if(Session::has('false'))
+                                    <div class="alert alert-warning" role="alert">
+                                        {{ Session::get('false') }}
+                                    </div>
+                                @endif
+                            </div>
                             <!-- Form -->
-                            <form class="js-validate" action="{{route('register_client.postRegister')}}" method="post">
+                            <form class="registerForm" action="{{route('register_client.postRegister')}}" method="post">
                                 @csrf
                                 <div class="text-center">
                                     <div class="mb-5">
@@ -149,5 +165,6 @@
         </div>
         <!-- End Content -->
     </main>
+    <script src="public/js/ajax.js"></script>
     <!-- ========== END MAIN CONTENT ========== -->
 @endsection
