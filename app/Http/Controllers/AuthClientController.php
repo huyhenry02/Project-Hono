@@ -47,21 +47,21 @@ class AuthClientController extends Controller
                 $email->subject('Hono - Xác nhận tài khoản');
                 $email->to($user->email, $user->name);
             });
-            Session::put('success', 'Vui lòng check mail để xác nhận tài khoản');
-            return redirect()->route('login_client.index');
+//            Session::put('success', 'Vui lòng check mail để xác nhận tài khoản');
+            return redirect()->route('login_client.index')->with('success_Register', 'Vui lòng check mail để xác nhận tài khoản');
         }
-        Session::put('false', 'Đăng ký không thành công');
-        return redirect()->back();
+//        Session::put('false', 'Đăng ký không thành công');
+        return redirect()->back()->with('false_Register', 'Đăng ký không thành công');
     }
     public function actived(User $user,$token)
     {
         if($user->token === $token){
         $user->update(['status'=>1,'token'=>null]);
-            Session::put('success', 'tài khoản đã được xác nhận ');
+            Session::put('success_actived', 'tài khoản đã được xác nhận ');
         return redirect()->route('login_client.index');
         }else{
-            Session::put('false', 'tài khoản chưa được xác nhận ');
-            return redirect()->route('login_client.index');
+//            Session::put('false_actived', 'tài khoản chưa được xác nhận ');
+            return redirect()->route('login_client.index')->with('false_actived', 'tài khoản chưa được xác nhận ');
         }
     }
     public function postLogin(Request $request)
@@ -73,12 +73,12 @@ class AuthClientController extends Controller
         $user =  Auth::attempt($credentials);
         if ($user) {
             $accessToken = Auth::user()->createToken('token')->token;
-            Session::put('success', 'Đăng nhập thành công.');
+//            Session::put('success_Login', 'Đăng nhập thành công.');
 //            dd(Session::has('success'));
-           return view('hono.account.index');
+           return view('hono.account.index')->with('success_Login', 'Đăng nhập thành công.');
         } else {
-            Session::put('false', 'Đăng nhập thất bại.');
-            return redirect()->back();
+
+            return redirect()->back()->with('false_Login', 'Đăng nhập thất bại.');
         }
     }
     public function logout()
@@ -102,8 +102,8 @@ class AuthClientController extends Controller
                 $email->subject('Hono - Lấy lại mật khẩu');
                 $email->to($user->email, $user->name);
             });
-        Session::put('success', 'Vui lòng check mail để thực hiện thay đổi ');
-            return redirect()->route('login_client.index');
+//        Session::put('success', 'Vui lòng check mail để thực hiện thay đổi ');
+            return redirect()->route('login_client.index')->with('success_forgotPassword', 'Vui lòng check mail để thực hiện thay đổi ');
     }
     public function show_reset_pass(User $user,$token)
     {
@@ -119,13 +119,10 @@ class AuthClientController extends Controller
             ['password'=>'required',]);
         $password_h = bcrypt($request->password);
         $user->update(['password'=>$password_h,'token'=>null]);
-        Session::put('success', 'Bạn đã đổi mật khẩu thành công');
-        return \redirect()->route('login_client.index');
+//        Session::put('success_resetPassword', 'Bạn đã đổi mật khẩu thành công');
+        return \redirect()->route('login_client.index')->with('success_resetPassword','Bạn đã đổi mật khẩu thành công');
     }
-
-
-
-
+    
 
 
 

@@ -27,16 +27,27 @@
                             {{--            Thông báo tác vụ--}}
                             <div class="container" >
 
-                                @if(Session::has('success'))
+                                @if(Session::has('success_forgotPassword'))
                                     <div class="alert alert-success" role="alert">
-                                        {{ Session::get('success') }}
+                                        {{ Session::get('success_forgotPassword') }}
                                     </div>
                                 @endif
-                                @if(Session::has('false'))
+                                @if(Session::has('false_Login'))
                                     <div class="alert alert-warning" role="alert">
-                                        {{ Session::get('false') }}
+                                        {{ Session::get('false_Login') }}
                                     </div>
                                 @endif
+                                    @if(Session::has('success_resetPassword'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ Session::get('success_resetPassword') }}
+                                        </div>
+                                    @endif
+                                    @if(Session::has('success_Login'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ Session::get('success_Login') }}
+                                        </div>
+                                    @endif
+
                             </div>
                             <!-- Form -->
                             <form class="loginForm" method="post" action="{{route('login_client.postLogin')}}">

@@ -25,15 +25,15 @@
                     <div class="card card-lg mb-5">
                         <div class="card-body">
                             <div class="container" >
-                                @if(Session::has('yes'))
+                                @if(Session::has('success_resetPassword'))
                                     <div class="alert alert-success" role="alert">
-                                        {{ Session::get('yes') }}
+                                        {{ Session::get('success_resetPassword') }}
                                     </div>
                                 @endif
 
-                                @if(Session::has('no'))
+                                @if(Session::has(''))
                                     <div class="alert alert-warning" role="alert">
-                                        {{ Session::get('no') }}
+                                        {{ Session::get('') }}
                                     </div>
                                 @endif
                             </div>

@@ -26,14 +26,14 @@
                             {{--            Thông báo tác vụ--}}
                             <div class="container" >
 
-                                @if(Session::has('success'))
+                                @if(Session::has('success_Register'))
                                     <div class="alert alert-success" role="alert">
-                                        {{ Session::get('success') }}
+                                        {{ Session::get('success_Register') }}
                                     </div>
                                 @endif
-                                @if(Session::has('false'))
+                                @if(Session::has('false_Register'))
                                     <div class="alert alert-warning" role="alert">
-                                        {{ Session::get('false') }}
+                                        {{ Session::get('false_Register') }}
                                     </div>
                                 @endif
                             </div>

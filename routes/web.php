@@ -91,11 +91,10 @@ Route::prefix('hono')->group(function () {
     //Active Client
     Route::get('actived/{user}/{token} ', 'AuthClientController@actived')->name('client.actived');
 
-Route::prefix('my_account')->group(function ()
+Route::prefix('my_account')->middleware('auth')->group(function ()
 {
     Route::get('/logout', 'AuthClientController@logout')->name('logout_client');
     Route::get('/','ClientController@show_my_account')->name('my_account_client.index');
 
-}
-);
+});
 });
